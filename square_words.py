@@ -1,6 +1,6 @@
 __metaclass__ = type
 
-from itertools import groupby
+from itertools import groupby, chain
 from string import ascii_uppercase
 
 # might be a nice javascript application to test out the various possibilities
@@ -33,6 +33,9 @@ class Grid:
     def __getitem__(self, item):
         return self.grid[item]
 
+    def __iter__(self):
+        return chain(self.lines(), self.columns())
+
     def lines(self):
         return iter(self.grid[:])
 
@@ -42,13 +45,8 @@ class Grid:
 
     @property
     def words(self):
-        res = []
-        for line in self.lines():
-            res += words_in_line(line)
-        for col in self.columns():
-            res += words_in_line(col)
-
-        return res
+        unflat = [words_in_line(line) for line in self]
+        return reduce(lambda x,y: x+y, unflat)
 
     @property
     def chars(self):
