@@ -1,5 +1,7 @@
 __metaclass__ = type
-import string
+
+from itertools import groupby
+from string import ascii_uppercase
 
 # might be a nice javascript application to test out the various possibilities
 GRID_SIZE = 8
@@ -7,11 +9,18 @@ GRID_SIZE = 8
 DICT_FILE = 'cracklib-small'
 # if the dictionary is not too small it can be simply loaded up-front
 DICT = set(x.strip() for x in open(DICT_FILE))
-CHARS = string.ascii_uppercase
 
 
 def is_valid_word(word):
     return word in DICT
+
+
+def words_in_line(line):
+    """Return the words in the list of chars
+    """
+    grouped = groupby(line, lambda x: x is None)
+    ls = [list(x[1]) for x in grouped if not x[0]]
+    return [''.join(x) for x in ls]
 
 
 class Grid:
@@ -36,7 +45,7 @@ class Grid:
         res = 0
         for line in self.grid:
             for val in line:
-                if (val is not None) and (val in CHARS):
+                if (val is not None) and (val in ascii_uppercase):
                     res += 1
 
         return res
