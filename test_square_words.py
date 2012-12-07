@@ -10,4 +10,10 @@ class TestSquareWords(unittest.TestCase):
 
     def test_count_chars_empty_grid(self):
         grid = square.Grid()
-        self.assertEqual(grid.count_chars(), 0)
+        self.assertEqual(grid.chars, 0)
+        self.assertEqual(grid.empty, 64)
+
+    def test_grid_with_values(self):
+        grid = square.Grid()
+        grid[0][0] = 'A'
+        self.assertEqual(grid.chars, 1)

@@ -15,8 +15,24 @@ def is_valid_word(word):
 
 
 class Grid:
-    def __init__(self):
-        pass
+    def __init__(self, length=GRID_SIZE):
+        self.lines = []
+        for _ in range(length):
+            self.lines.append([None] * length)
 
-    def count_chars(self):
-        return 0
+    def __getitem__(self, item):
+        return self.lines[item]
+
+    @property
+    def chars(self):
+        res = 0
+        for line in self.lines:
+            for val in line:
+                if (val is not None) and (val in CHARS):
+                    res += 1
+
+        return res
+
+    @property
+    def empty(self):
+        return len(self.lines) ** 2
