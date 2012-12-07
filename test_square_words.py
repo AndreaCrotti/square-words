@@ -25,14 +25,14 @@ class TestSquareWords(unittest.TestCase):
         first_line = list(grid.lines())[0]
         self.assertEqual(first_line[1], 'B')
         first_col = list(grid.columns())[0]
-        self.assertEqual(first_col[1], None)
+        self.assertEqual(first_col[1], square.EMPTY)
 
     def test_words_in_line(self):
-        line = [None, None, 'B', 'A', None, 'C', 'B', 'A']
+        line = [square.EMPTY, square.EMPTY, 'B', 'A', square.EMPTY, 'C', 'B', 'A']
         words = ['BA', 'CBA']
         self.assertEqual(square.words_in_line(line), words)
 
-        line_two = ['A', 'C', None, None]
+        line_two = ['A', 'C', square.EMPTY, square.EMPTY]
         self.assertEqual(square.words_in_line(line_two), ['AC'])
 
     def test_words_in_grid(self):

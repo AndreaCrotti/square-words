@@ -5,6 +5,7 @@ from string import ascii_uppercase
 
 # might be a nice javascript application to test out the various possibilities
 GRID_SIZE = 8
+EMPTY = ' '
 
 DICT_FILE = 'cracklib-small'
 # if the dictionary is not too small it can be simply loaded up-front
@@ -18,7 +19,7 @@ def is_valid_word(word):
 def words_in_line(line):
     """Return the words in the list of chars
     """
-    grouped = groupby(line, lambda x: x is None)
+    grouped = groupby(line, lambda x: x == EMPTY)
     ls = [list(x[1]) for x in grouped if not x[0]]
     return [''.join(x) for x in ls]
 
@@ -28,7 +29,10 @@ class Grid:
         self.length = length
         self.grid = []
         for _ in range(self.length):
-            self.grid.append([None] * self.length)
+            self.grid.append([EMPTY] * self.length)
+
+    def __str__(self):
+        return '\n'.join(''.join(x) for x in self)
 
     def __getitem__(self, item):
         return self.grid[item]
@@ -46,14 +50,15 @@ class Grid:
     @property
     def words(self):
         unflat = [words_in_line(line) for line in self]
-        return reduce(lambda x,y: x+y, unflat)
+        print("%s \n -- \n %s" % (str(unflat), str(list(self))))
+        return reduce(lambda x, y: x + y, unflat)
 
     @property
     def chars(self):
         res = 0
         for line in self.grid:
             for val in line:
-                if (val is not None) and (val in ascii_uppercase):
+                if (val != EMPTY) and (val in ascii_uppercase):
                     res += 1
 
         return res
