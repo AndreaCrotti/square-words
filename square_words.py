@@ -16,17 +16,25 @@ def is_valid_word(word):
 
 class Grid:
     def __init__(self, length=GRID_SIZE):
-        self.lines = []
-        for _ in range(length):
-            self.lines.append([None] * length)
+        self.length = length
+        self.grid = []
+        for _ in range(self.length):
+            self.grid.append([None] * self.length)
 
     def __getitem__(self, item):
-        return self.lines[item]
+        return self.grid[item]
+
+    def lines(self):
+        return iter(self.grid[:])
+
+    def columns(self):
+        for n in range(self.length):
+            yield [self.grid[i][n] for i in range(self.length)]
 
     @property
     def chars(self):
         res = 0
-        for line in self.lines:
+        for line in self.grid:
             for val in line:
                 if (val is not None) and (val in CHARS):
                     res += 1
@@ -35,4 +43,4 @@ class Grid:
 
     @property
     def empty(self):
-        return len(self.lines) ** 2
+        return self.length ** 2

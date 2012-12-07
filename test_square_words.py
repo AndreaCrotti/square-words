@@ -17,3 +17,8 @@ class TestSquareWords(unittest.TestCase):
         grid = square.Grid()
         grid[0][0] = 'A'
         self.assertEqual(grid.chars, 1)
+
+    def test_lines_columns(self):
+        grid = square.Grid()
+        grid[0][0] = 'A'
+
