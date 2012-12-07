@@ -21,4 +21,8 @@ class TestSquareWords(unittest.TestCase):
     def test_lines_columns(self):
         grid = square.Grid()
         grid[0][0] = 'A'
-
+        grid[0][1] = 'B'
+        first_line = list(grid.lines())[0]
+        self.assertEqual(first_line[1], 'B')
+        first_col = list(grid.columns())[0]
+        self.assertEqual(first_col[1], None)
