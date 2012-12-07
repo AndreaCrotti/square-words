@@ -31,3 +31,11 @@ class TestSquareWords(unittest.TestCase):
         line = [None, None, 'B', 'A', None, 'C', 'B', 'A']
         words = ['BA', 'CBA']
         self.assertEqual(square.words_in_line(line), words)
+
+    def test_words_in_grid(self):
+        grid = square.Grid()
+        grid[0][0] = 'A'
+        grid[0][1] = 'B'
+        grid[1][0] = 'C'
+        desired = ['AB', 'AC']
+        self.assertEqual(grid.words, desired)

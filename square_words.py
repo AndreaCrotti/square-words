@@ -41,6 +41,16 @@ class Grid:
             yield [self.grid[i][n] for i in range(self.length)]
 
     @property
+    def words(self):
+        res = []
+        for line in self.lines():
+            res += words_in_line(line)
+        for col in self.columns():
+            res += words_in_line(col)
+
+        return res
+
+    @property
     def chars(self):
         res = 0
         for line in self.grid:
