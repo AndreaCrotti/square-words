@@ -1,5 +1,9 @@
 __metaclass__ = type
 
+# TODO: one possible euristic is to detect the most used characters
+# and try to use words that are using these characters
+
+from copy import copy
 from itertools import groupby, chain
 from string import ascii_uppercase
 
@@ -25,27 +29,30 @@ def words_in_line(line):
 
 
 class Grid:
-    def __init__(self, length=GRID_SIZE):
+    def __init__(self, length=GRID_SIZE, cells=None):
         self.length = length
-        self.grid = []
-        for _ in range(self.length):
-            self.grid.append([EMPTY] * self.length)
+        if cells:
+            self.cells = cells
+        else:
+            self.cells = []
+            for _ in range(self.length):
+                self.cells.append([EMPTY] * self.length)
 
     def __str__(self):
         return '\n'.join(''.join(x) for x in self)
 
     def __getitem__(self, item):
-        return self.grid[item]
+        return self.cells[item]
 
     def __iter__(self):
         return chain(self.lines(), self.columns())
 
     def lines(self):
-        return iter(self.grid[:])
+        return iter(self.cells[:])
 
     def columns(self):
         for n in range(self.length):
-            yield [self.grid[i][n] for i in range(self.length)]
+            yield [self.cells[i][n] for i in range(self.length)]
 
     @property
     def words(self):
@@ -57,10 +64,18 @@ class Grid:
     @property
     def tot_chars(self):
         res = 0
-        for line in self.grid:
+        for line in self.cells:
             res += len([x for x in line if x in ascii_uppercase])
         return res
 
     @property
     def empty(self):
         return self.length ** 2
+
+    def place_word(self, word):
+        """Place a word in the grid returning a new grid object
+        """
+        assert len(word) < self.length, "word does not fit in the grid"
+        cells = copy(self.cells)
+        grid = Grid(self.length, cells=self.cells)
+        return grid

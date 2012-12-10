@@ -48,3 +48,8 @@ class TestSquareWords(unittest.TestCase):
         grid[1][0] = 'C'
         desired = ['AB', 'AC']
         self.assertEqual(grid.words, desired)
+
+    def test_placing_too_big_word(self):
+        grid = square.Grid(3)
+        with self.assertRaises(AssertionError):
+            grid.place_word('VERYLONG')
