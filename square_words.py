@@ -55,7 +55,7 @@ class Grid:
         return [x for x in flat if len(x) > 1]
 
     @property
-    def chars(self):
+    def tot_chars(self):
         res = 0
         for line in self.grid:
             res += len([x for x in line if x in ascii_uppercase])

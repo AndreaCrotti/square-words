@@ -10,13 +10,19 @@ class TestSquareWords(unittest.TestCase):
 
     def test_count_chars_empty_grid(self):
         grid = square.Grid()
-        self.assertEqual(grid.chars, 0)
+        self.assertEqual(grid.tot_chars, 0)
         self.assertEqual(grid.empty, 64)
+
+    def test_set_value_in_grid_line_only_modifies_cell(self):
+        grid = square.Grid()
+        grid[0][0] = 'A'
+        self.assertEqual(grid[0][1], square.EMPTY)
+        self.assertEqual(grid[1][0], square.EMPTY)
 
     def test_grid_with_values(self):
         grid = square.Grid()
         grid[0][0] = 'A'
-        self.assertEqual(grid.chars, 1)
+        self.assertEqual(grid.tot_chars, 1)
 
     def test_lines_columns(self):
         grid = square.Grid()
