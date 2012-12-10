@@ -3,7 +3,7 @@ __metaclass__ = type
 # TODO: one possible euristic is to detect the most used characters
 # and try to use words that are using these characters
 
-from copy import copy
+from copy import deepcopy
 from itertools import groupby, chain
 from string import ascii_uppercase
 
@@ -83,10 +83,14 @@ class Grid:
         """Place a word in the grid returning a new grid object
         """
         assert len(word) <= self.length, "word does not fit in the grid"
-        cells = copy(self.cells)
+        cells = deepcopy(self.cells)
         for i in range(len(word)):
             if direction == VERTICAL:
-                pos = pos[0], pos[1]
+                pos = i, pos[1]
+            else:
+                pos = pos[0], i
+
+            cells[pos[0]][pos[1]] = word[i]
 
         grid = Grid(self.length, cells=cells)
         return grid

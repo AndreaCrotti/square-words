@@ -54,6 +54,14 @@ class TestSquareWords(unittest.TestCase):
         with self.assertRaises(AssertionError):
             grid.place_word('VERYLONG')
 
+    def test_placing_word_vertical(self):
+        grid = square.Grid(5)
+        new_grid = grid.place_word('aaa', pos=(1, 0), direction=square.VERTICAL)
+        # check that the old grid is not touched
+        self.assertEqual(grid[1][0], square.EMPTY)
+        self.assertEqual(new_grid[1][0], 'a')
+        self.assertTrue(new_grid.is_valid())
+
     def test_check_grid(self):
         grid = square.Grid(3)
         grid[0][0] = 'A'
