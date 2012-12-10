@@ -50,8 +50,9 @@ class Grid:
     @property
     def words(self):
         unflat = [words_in_line(line) for line in self]
-        print("%s \n -- \n %s" % (str(unflat), str(list(self))))
-        return reduce(lambda x, y: x + y, unflat)
+        flat = reduce(lambda x, y: x + y, unflat)
+        # TODO: check if the filtering should be done in words_per_line?
+        return [x for x in flat if len(x) > 1]
 
     @property
     def chars(self):
