@@ -3,6 +3,9 @@ __metaclass__ = type
 # TODO: one possible euristic is to detect the most used characters
 # and try to use words that are using these characters
 
+# another possible heuristic is to use the length of the words trying
+# to maximize every time the size we're inserting
+
 from copy import deepcopy
 from itertools import groupby, chain
 from string import ascii_lowercase
