@@ -5,7 +5,7 @@ __metaclass__ = type
 
 from copy import deepcopy
 from itertools import groupby, chain
-from string import ascii_uppercase
+from string import ascii_lowercase
 
 # might be a nice javascript application to test out the various possibilities
 GRID_SIZE = 8
@@ -72,7 +72,7 @@ class Grid:
     def tot_chars(self):
         res = 0
         for line in self.cells:
-            res += len([x for x in line if x in ascii_uppercase])
+            res += len([x for x in line if x in ascii_lowercase])
         return res
 
     def empty_cells(self):
@@ -105,3 +105,11 @@ class Grid:
 
         grid = Grid(self.length, cells=cells)
         return grid
+
+
+def main():
+    grid = Grid()
+
+
+if __name__ == '__main__':
+    main()
