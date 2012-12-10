@@ -60,7 +60,14 @@ class TestSquareWords(unittest.TestCase):
         # check that the old grid is not touched
         self.assertEqual(grid[1][0], square.EMPTY)
         self.assertEqual(new_grid[1][0], 'a')
+        self.assertEqual(new_grid[2][0], 'a')
         self.assertTrue(new_grid.is_valid())
+
+    def test_placing_word_twice(self):
+        grid = square.Grid(5)
+        new_grid = grid.place_word('aaa', pos=(1, 0), direction=square.VERTICAL)
+        with self.assertRaises(AssertionError):
+            new_grid.place_word('bbb', (1, 0), direction=square.HORIZONTAL)
 
     def test_check_grid(self):
         grid = square.Grid(3)

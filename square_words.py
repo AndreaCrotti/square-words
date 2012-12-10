@@ -89,6 +89,10 @@ class Grid:
         """Place a word in the grid returning a new grid object
         """
         assert len(word) <= self.length, "word does not fit in the grid"
+        # take the first available place
+        if pos is None:
+            pos = self.empty_cells().next()
+
         cells = deepcopy(self.cells)
         for i in range(len(word)):
             if direction == VERTICAL:
@@ -96,6 +100,7 @@ class Grid:
             else:
                 pos = pos[0], i
 
+            assert cells[pos[0]][pos[1]] == EMPTY, "%s Must be empty" % str(pos)
             cells[pos[0]][pos[1]] = word[i]
 
         grid = Grid(self.length, cells=cells)
