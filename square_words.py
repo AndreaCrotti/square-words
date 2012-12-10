@@ -14,6 +14,8 @@ EMPTY = ' '
 DICT_FILE = 'cracklib-small'
 # if the dictionary is not too small it can be simply loaded up-front
 DICT = set(x.strip() for x in open(DICT_FILE))
+VERTICAL = 'V'
+HORIZONTAL = 'H'
 
 
 def is_valid_word(word):
@@ -54,6 +56,11 @@ class Grid:
         for n in range(self.length):
             yield [self.cells[i][n] for i in range(self.length)]
 
+    def is_valid(self):
+        """Return true if all the words in the grid are valid words
+        """
+        return all(is_valid_word(x) for x in self.words)
+
     @property
     def words(self):
         unflat = [words_in_line(line) for line in self]
@@ -72,10 +79,14 @@ class Grid:
     def empty(self):
         return self.length ** 2
 
-    def place_word(self, word):
+    def place_word(self, word, pos=None, direction=VERTICAL):
         """Place a word in the grid returning a new grid object
         """
-        assert len(word) < self.length, "word does not fit in the grid"
+        assert len(word) <= self.length, "word does not fit in the grid"
         cells = copy(self.cells)
-        grid = Grid(self.length, cells=self.cells)
+        for i in range(len(word)):
+            if direction == VERTICAL:
+                pos = pos[0], pos[1]
+
+        grid = Grid(self.length, cells=cells)
         return grid

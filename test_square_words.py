@@ -53,3 +53,8 @@ class TestSquareWords(unittest.TestCase):
         grid = square.Grid(3)
         with self.assertRaises(AssertionError):
             grid.place_word('VERYLONG')
+
+    def test_check_grid(self):
+        grid = square.Grid(3)
+        grid.place_word('ABC', pos=(0, 0), direction=square.VERTICAL)
+        self.assertTrue(not grid.is_valid())
