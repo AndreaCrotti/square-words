@@ -58,10 +58,7 @@ class Grid:
     def chars(self):
         res = 0
         for line in self.grid:
-            for val in line:
-                if (val != EMPTY) and (val in ascii_uppercase):
-                    res += 1
-
+            res += len([x for x in line if x in ascii_uppercase])
         return res
 
     @property
