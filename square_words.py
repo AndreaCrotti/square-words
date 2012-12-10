@@ -75,6 +75,12 @@ class Grid:
             res += len([x for x in line if x in ascii_uppercase])
         return res
 
+    def empty_cells(self):
+        for i in range(self.length):
+            for j in range(self.length):
+                if self.cells[i][j] == EMPTY:
+                    yield i, j
+
     @property
     def empty(self):
         return self.length ** 2

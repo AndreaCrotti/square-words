@@ -67,3 +67,8 @@ class TestSquareWords(unittest.TestCase):
         grid[0][0] = 'A'
         grid[0][1] = 'B'
         self.assertTrue(not grid.is_valid())
+
+    def test_empty_cells(self):
+        grid = square.Grid(3)
+        gen = grid.empty_cells()
+        self.assertEqual(gen.next(), (0, 0))
