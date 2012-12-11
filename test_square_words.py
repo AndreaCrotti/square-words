@@ -79,3 +79,18 @@ class TestSquareWords(unittest.TestCase):
         grid = square.Grid(3)
         gen = grid.empty_cells()
         self.assertEqual(gen.next(), (0, 0))
+
+
+class TestWords(unittest.TestCase):
+    def setUp(self):
+        self.words = square.Words()
+
+    def test_simple_word_found(self):
+        self.assertTrue('aaa' in self.words)
+
+    def test_get_words_anagrams(self):
+        # find word 'aberdeen'
+        to_find = 'a er ee '
+        all_an = self.words.anagram(to_find)
+        self.assertTrue('aberdeen' in all_an)
+        self.assertEqual(len(all_an), 1)

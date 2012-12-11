@@ -5,6 +5,7 @@ __metaclass__ = type
 
 # another possible heuristic is to use the length of the words trying
 # to maximize every time the size we're inserting
+import re
 
 from copy import deepcopy
 from itertools import groupby, chain
@@ -19,6 +20,25 @@ DICT_FILE = 'cracklib-small'
 DICT = set(x.strip() for x in open(DICT_FILE))
 VERTICAL = 'V'
 HORIZONTAL = 'H'
+
+
+class Words:
+    """Class encapsulating the words, to make it easier to manipulate
+    them
+    """
+    def __init__(self, dictfile=DICT_FILE):
+        self.dictfile = dictfile
+        self.dict = set(x.strip() for x in open(DICT_FILE))
+
+    def __contains__(self, val):
+        return val in self.dict
+
+    def anagram(self, to_find):
+        """Given a word with spaces, return the list of strings that
+        would match that
+        """
+        to_find = to_find.replace(EMPTY, '[a-z]')
+        return [x for x in self.dict if re.match(to_find, x)]
 
 
 def is_valid_word(word):
