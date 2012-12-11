@@ -4,10 +4,6 @@ import square_words as square
 
 
 class TestSquareWords(unittest.TestCase):
-    def test_is_valid_word(self):
-        self.assertTrue(square.is_valid_word("valid"))
-        self.assertTrue(not square.is_valid_word("ndfkjlk"))
-
     def test_count_chars_empty_grid(self):
         grid = square.Grid()
         self.assertEqual(grid.tot_chars, 0)
@@ -88,9 +84,9 @@ class TestWords(unittest.TestCase):
     def test_simple_word_found(self):
         self.assertTrue('aaa' in self.words)
 
-    def test_get_words_anagrams(self):
+    def test_get_words_match_prototypes(self):
         # find word 'aberdeen'
         to_find = 'a er ee '
-        all_an = self.words.anagram(to_find)
+        all_an = self.words.match_prototype(to_find)
         self.assertTrue('aberdeen' in all_an)
         self.assertEqual(len(all_an), 1)

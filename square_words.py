@@ -33,16 +33,12 @@ class Words:
     def __contains__(self, val):
         return val in self.dict
 
-    def anagram(self, to_find):
+    def match_prototype(self, to_find):
         """Given a word with spaces, return the list of strings that
         would match that
         """
         to_find = to_find.replace(EMPTY, '[a-z]')
         return [x for x in self.dict if re.match(to_find, x)]
-
-
-def is_valid_word(word):
-    return word in DICT
 
 
 def words_in_line(line):
