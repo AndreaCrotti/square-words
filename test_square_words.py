@@ -90,3 +90,7 @@ class TestWords(unittest.TestCase):
         all_an = self.words.match_prototype(to_find)
         self.assertTrue('aberdeen' in all_an)
         self.assertEqual(len(all_an), 1)
+
+    def test_matching_length(self):
+        res = list(self.words.length_word(3))
+        self.assertEqual(res[0], 'dna')

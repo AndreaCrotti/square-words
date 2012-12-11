@@ -7,6 +7,7 @@ __metaclass__ = type
 # to maximize every time the size we're inserting
 import re
 
+from collections import defaultdict
 from copy import deepcopy
 from itertools import groupby, chain
 from string import ascii_lowercase
@@ -29,9 +30,17 @@ class Words:
     def __init__(self, dictfile=DICT_FILE):
         self.dictfile = dictfile
         self.dict = set(x.strip() for x in open(DICT_FILE))
+        self.dict_per_length = self.match_length()
 
     def __contains__(self, val):
         return val in self.dict
+
+    def match_length(self):
+        dic_len = defaultdict(list)
+        for word in self.dict:
+            dic_len[len(word)].append(word)
+
+        return dic_len
 
     def match_prototype(self, to_find):
         """Given a word with spaces, return the list of strings that
@@ -39,6 +48,9 @@ class Words:
         """
         to_find = to_find.replace(EMPTY, '[a-z]')
         return [x for x in self.dict if re.match(to_find, x)]
+
+    def length_word(self, dim):
+        return iter(self.dict_per_length[dim])
 
 
 def words_in_line(line):
