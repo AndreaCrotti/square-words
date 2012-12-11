@@ -61,7 +61,7 @@ class TestSquareWords(unittest.TestCase):
         self.assertEqual(grid[1][0], square.EMPTY)
         self.assertEqual(new_grid[1][0], 'a')
         self.assertEqual(new_grid[2][0], 'a')
-        self.assertTrue(new_grid.is_valid())
+        self.assertTrue(new_grid.is_valid(square.Words()))
 
     def test_placing_word_twice(self):
         grid = square.Grid(5)
@@ -73,7 +73,7 @@ class TestSquareWords(unittest.TestCase):
         grid = square.Grid(3)
         grid[0][0] = 'a'
         grid[0][1] = 'b'
-        self.assertTrue(not grid.is_valid())
+        self.assertTrue(not grid.is_valid(square.Words()))
 
     def test_empty_cells(self):
         grid = square.Grid(3)

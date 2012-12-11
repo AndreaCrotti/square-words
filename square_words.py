@@ -79,10 +79,10 @@ class Grid:
         for n in range(self.length):
             yield [self.cells[i][n] for i in range(self.length)]
 
-    def is_valid(self):
+    def is_valid(self, word_dict):
         """Return true if all the words in the grid are valid words
         """
-        return all(is_valid_word(x) for x in self.words)
+        return all((x in word_dict) for x in self.words)
 
     @property
     def words(self):
