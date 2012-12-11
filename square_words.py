@@ -36,6 +36,8 @@ class Words:
         return val in self.dict
 
     def match_length(self):
+        """Generates a dictionary with length and word list
+        """
         dic_len = defaultdict(list)
         for word in self.dict:
             dic_len[len(word)].append(word)
@@ -50,6 +52,8 @@ class Words:
         return [x for x in self.dict if re.match(to_find, x)]
 
     def length_word(self, dim):
+        """Return an iterator over the list of words per given length
+        """
         return iter(self.dict_per_length[dim])
 
 
@@ -140,6 +144,15 @@ class Grid:
 
 def main():
     grid = Grid()
+    words = Words()
+    ws = words.length_word(8)
+    w1, w2 = ws.next(), ws.next()
+    ng = grid.place_word(w1, pos=(0, 0))
+    print(ng)
+    # ng2 = ng.place_word(w2, pos=(2, 0))
+    # assert ng2.is_valid(words)
+
+    # print(ng2)
 
 
 if __name__ == '__main__':
