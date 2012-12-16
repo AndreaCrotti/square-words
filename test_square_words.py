@@ -121,3 +121,11 @@ class TestMaximizeProblem(unittest.TestCase):
         words = square.Words()
         ng = square.maximize_step(grid, words)
         self.assertEqual(ng.tot_chars, 8)
+
+    def test_alternate_positions(self):
+        desired = [((0, 0), square.VERTICAL),
+                   ((0, 0), square.HORIZONTAL),
+                   ((2, 0), square.VERTICAL),
+                   ((0, 2), square.HORIZONTAL)]
+
+        self.assertEqual(list(square.alternate_dir_pos(3)), desired)

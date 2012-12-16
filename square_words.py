@@ -28,6 +28,7 @@ HORIZONTAL = 'H'
 
 
 class NotEmptyCell(Exception): pass
+class NotValidGrid(Exception): pass
 
 
 class Words:
@@ -158,7 +159,17 @@ class Grid:
 
             cells[x][y] = word[idx]
 
-        return Grid(self.length, cells=cells)
+        new_grid = Grid(self.length, cells=cells)
+        if not new_grid.is_valid:
+            raise NotValidGrid("Grid %s contains some non words" % str(new_grid))
+
+        return new_grid
+
+
+def alternate_dir_pos(length):
+    for n in range(0, length, 2):
+        yield (n, 0), VERTICAL
+        yield (0, n), HORIZONTAL
 
 
 def maximize_step(grid, words):
