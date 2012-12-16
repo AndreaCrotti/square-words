@@ -138,7 +138,7 @@ class Grid:
 
     @property
     def empty(self):
-        return self.length ** 2
+        return (self.length ** 2) - self.tot_chars
 
     def place_word(self, word, pos=None, direction=VERTICAL):
         """Place a word in the grid returning a new grid object

@@ -9,6 +9,12 @@ class TestSquareWords(unittest.TestCase):
         self.assertEqual(grid.tot_chars, 0)
         self.assertEqual(grid.empty, 64)
 
+    def test_count_chars_not_empty_grid(self):
+        grid = square.Grid()
+        grid[0][1] = 'a'
+        self.assertEqual(grid.tot_chars, 1)
+        self.assertEqual(grid.empty, 63)
+
     def test_set_value_in_grid_line_only_modifies_cell(self):
         grid = square.Grid()
         grid[0][0] = 'a'
