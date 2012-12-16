@@ -126,6 +126,10 @@ class Grid:
         """
         return all((x in word_dict) for x in self.words)
 
+    def get_prototype(self, pos, direction, length):
+        all_pos = cell_pos(pos, direction, length)
+        return ''.join(self.cells[x][y] for x, y in all_pos)
+
     @property
     def words(self):
         all_words_per_line = [words_in_line(line) for line in self]

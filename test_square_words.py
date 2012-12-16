@@ -65,6 +65,11 @@ class TestSquareWords(unittest.TestCase):
         with self.assertRaises(square.InvalidCellSet):
             new_grid.place_word('bbb', (1, 0), direction=square.HORIZONTAL)
 
+    def test_get_prototype_function(self):
+        self.grid[0][0] = 'a'
+        self.grid[0][2] = 'a'
+        self.assertEqual(self.grid.get_prototype((0, 0), square.HORIZONTAL, 8), 'a a     ')
+
     def test_check_grid(self):
         self.grid[0][0] = 'a'
         self.grid[0][1] = 'b'
