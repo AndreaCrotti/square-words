@@ -188,15 +188,20 @@ def maximize_step(grid, words, pos=None, direction=None):
     # TODO: we might want to pass some kind of hint to the
     # maximization or define a class of possible behaviours that can
     # be applied to transform the grid automatically
-    for length in range(grid.length, 1, -1):
-        ws = words.length_word(length)
+    for word_length in range(grid.length, 1, -1):
+        proto = grid.get_prototype(pos, direction, word_length)
+        proto_gen = words.longest_prototype(proto, limit=word_length)
         while True:
-            word = ws.next()
             try:
-                # need to find a word that fits!
-                return grid.place_word(word, pos, direction)
-            except NotValidGrid:
-                continue
+                next_matching = proto_gen.next()
+            except StopIteration:
+                break
+            else:
+                try:
+                    # need to find a word that fits!
+                    return grid.place_word(next_matching, pos, direction)
+                except NotValidGrid:
+                    continue
 
 
 def main():
