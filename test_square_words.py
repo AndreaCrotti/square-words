@@ -138,4 +138,4 @@ class TestMaximizeProblem(unittest.TestCase):
                    ((2, 0), square.VERTICAL),
                    ((0, 2), square.HORIZONTAL)]
 
-        self.assertEqual(list(square.alternate_dir_pos(3)), desired)
+        self.assertListEqual(list(square.alternate_dir_pos(3)), desired)
