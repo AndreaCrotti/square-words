@@ -181,13 +181,9 @@ def maximize_step(grid, words):
         while True:
             word = ws.next()
             try:
-                # TODO: place word should fail in case the produced
-                # thing is not valid
-                new_grid = grid.place_word(word)
-            except AssertionError:
+                return grid.place_word(word)
+            except NotValidGrid:
                 continue
-            else:
-                return new_grid
 
 
 def main():
