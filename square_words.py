@@ -149,14 +149,9 @@ class Grid:
             pos = self.empty_cells().next()
 
         cells = deepcopy(self.cells)
-        for i in range(len(word)):
-            if direction == VERTICAL:
-                pos = i, pos[1]
-            else:
-                pos = pos[0], i
-
-            assert cells[pos[0]][pos[1]] == EMPTY, "%s Must be empty" % str(pos)
-            cells[pos[0]][pos[1]] = word[i]
+        for idx, (x, y) in enumerate(cell_pos(pos, direction, len(word))):
+            assert cells[x][y] == EMPTY, "%d, %d Must be empty" % (x, y)
+            cells[x][y] = word[idx]
 
         grid = Grid(self.length, cells=cells)
         return grid
