@@ -120,5 +120,4 @@ class TestMaximizeProblem(unittest.TestCase):
         grid = square.Grid()
         words = square.Words()
         ng = square.maximize_step(grid, words)
-        self.assertTrue(ng.tot_chars > grid.tot_chars)
-        self.assertEqual(str(ng), "")
+        self.assertEqual(ng.tot_chars, 8)
