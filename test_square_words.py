@@ -81,6 +81,11 @@ class TestSquareWords(unittest.TestCase):
         grid = square.Grid.grid_from_string_list(tr)
         self.assertEqual(grid[0][1], square.EMPTY)
 
+    def test_position_and_direction_give_right_coordinates(self):
+        desired = [(0, 0), (0, 1), (0, 2)]
+        got = square.cell_pos(pos=(0, 0), direction=square.HORIZONTAL, length=3)
+        self.assertEqual(list(got), desired)
+
 
 class TestWords(unittest.TestCase):
     def setUp(self):
@@ -107,5 +112,5 @@ class TestMaximizeProblem(unittest.TestCase):
         gr2 = gr1.place_word('racecar')
         self.assertTrue(gr2.tot_chars > gr1.tot_chars)
         self.assertTrue(gr2.is_valid)
-        gr3 = gr2.place_word('racecar', pos=(2, 0))
+        gr3 = gr2.place_word('racecar')
         self.assertTrue(gr3.tot_chars > gr2.tot_chars)

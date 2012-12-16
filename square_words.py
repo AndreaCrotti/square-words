@@ -12,6 +12,7 @@ import re
 
 from collections import defaultdict
 from copy import deepcopy
+from functools import reduce
 from itertools import groupby, chain
 from string import ascii_lowercase
 
@@ -66,6 +67,14 @@ def words_in_line(line):
     grouped = groupby(line, lambda x: x == EMPTY)
     ls = [list(x[1]) for x in grouped if not x[0]]
     return [''.join(x) for x in ls]
+
+
+def cell_pos(pos, direction, length):
+    for i in range(length):
+        if direction == VERTICAL:
+            yield i, pos[1]
+        else:
+            yield pos[0], i
 
 
 class Grid:
