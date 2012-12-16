@@ -143,24 +143,14 @@ class Grid:
             res += len([x for x in line if x in ascii_lowercase])
         return res
 
-    def empty_cells(self):
-        for i in range(self.length):
-            for j in range(self.length):
-                if self.cells[i][j] == EMPTY:
-                    yield i, j
-
     @property
     def empty(self):
         return (self.length ** 2) - self.tot_chars
 
-    def place_word(self, word, pos=None, direction=VERTICAL):
+    def place_word(self, word, pos=(0, 0), direction=VERTICAL):
         """Place a word in the grid returning a new grid object
         """
         assert len(word) <= self.length, "word does not fit in the grid"
-        # take the first available place, but this also depends on the
-        # direction we want to go
-        if pos is None:
-            pos = self.empty_cells().next()
 
         cells = deepcopy(self.cells)
         for idx, (x, y) in enumerate(cell_pos(pos, direction, len(word))):

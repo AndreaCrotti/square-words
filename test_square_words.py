@@ -75,10 +75,6 @@ class TestSquareWords(unittest.TestCase):
         self.grid[0][1] = 'b'
         self.assertTrue(not self.grid.is_valid(square.Words()))
 
-    def test_empty_cells(self):
-        gen = self.grid.empty_cells()
-        self.assertEqual(gen.next(), (0, 0))
-
     def test_string_list_to_grid(self):
         tr = ["r cecar"] * 8
         grid = square.Grid.grid_from_string_list(tr)
