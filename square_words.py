@@ -72,9 +72,9 @@ def words_in_line(line):
 def cell_pos(pos, direction, length):
     for i in range(length):
         if direction == VERTICAL:
-            yield i, pos[1]
+            yield i + pos[0], pos[1]
         else:
-            yield pos[0], i
+            yield pos[0], i + pos[1]
 
 
 class Grid:

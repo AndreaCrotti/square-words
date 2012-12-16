@@ -82,7 +82,10 @@ class TestSquareWords(unittest.TestCase):
     def test_position_and_direction_give_right_coordinates(self):
         desired = [(0, 0), (0, 1), (0, 2)]
         got = square.cell_pos(pos=(0, 0), direction=square.HORIZONTAL, length=3)
-        self.assertEqual(list(got), desired)
+        self.assertListEqual(list(got), desired)
+        des_vert = [(1, 1), (2, 1), (3, 1)]
+        got = square.cell_pos(pos=(1, 1), direction=square.VERTICAL, length=3)
+        self.assertListEqual(list(got), des_vert)
 
 
 class TestWords(unittest.TestCase):
