@@ -88,7 +88,7 @@ class Grid:
                 self.cells.append([EMPTY] * self.length)
 
     def __str__(self):
-        return '\n'.join(''.join(x) for x in self)
+        return '\n'.join(''.join(x) for x in self.lines())
 
     def __getitem__(self, item):
         return self.cells[item]
@@ -179,7 +179,7 @@ def main():
     old_grid = Grid()
     while True:
         next_grid = maximize_step(old_grid, words)
-        print("New grid {} has {} tot chars".format(next_grid, next_grid.tot_chars))
+        print("New grid:\n {}\n has {} tot chars".format(next_grid, next_grid.tot_chars))
         if next_grid.tot_chars == old_grid.tot_chars:
             break
         else:
