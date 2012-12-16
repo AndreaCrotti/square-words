@@ -102,6 +102,11 @@ class TestWords(unittest.TestCase):
         self.assertTrue('aberdeen' in all_an)
         self.assertEqual(len(all_an), 1)
 
+    def test_get_longest_prototype(self):
+        to_match = 'aberdeen'
+        lg_gen = self.words.longest_prototype('a er ee ', limit=8)
+        self.assertEqual(lg_gen.next(), to_match)
+
     def test_matching_length(self):
         res = list(self.words.length_word(3))
         self.assertEqual(res[0], 'dna')

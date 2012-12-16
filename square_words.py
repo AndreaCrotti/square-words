@@ -52,6 +52,12 @@ class Words:
 
         return dic_len
 
+    def longest_prototype(self, prototype, limit):
+        all_prototypes = self.match_prototype(prototype)
+        in_bound = [w for w in all_prototypes if len(w) <= limit]
+        for w in sorted(in_bound, key=lambda x: len(x), reverse=True):
+            yield w
+
     def match_prototype(self, to_find):
         """Given a word with spaces, return the list of strings that
         would match that
@@ -172,7 +178,7 @@ def alternate_dir_pos(length):
         yield (0, n), HORIZONTAL
 
 
-def maximize_step(grid, words):
+def maximize_step(grid, words, pos=None, direction=None):
     # TODO: we might want to pass some kind of hint to the
     # maximization or define a class of possible behaviours that can
     # be applied to transform the grid automatically
@@ -181,7 +187,8 @@ def maximize_step(grid, words):
         while True:
             word = ws.next()
             try:
-                return grid.place_word(word)
+                # need to find a word that fits!
+                return grid.place_word(word, pos, direction)
             except NotValidGrid:
                 continue
 
@@ -189,9 +196,9 @@ def maximize_step(grid, words):
 def main():
     words = Words()
     old_grid = Grid()
-    while True:
-        next_grid = maximize_step(old_grid, words)
-        print("New grid:\n {}\n has {} tot chars".format(next_grid, next_grid.tot_chars))
+    for pos, direction in alternate_dir_pos(old_grid.length):
+        next_grid = maximize_step(old_grid, words, pos, direction)
+        print("New grid:\n{}\n has {} tot chars".format(next_grid, next_grid.tot_chars))
         if next_grid.tot_chars == old_grid.tot_chars:
             break
         else:
