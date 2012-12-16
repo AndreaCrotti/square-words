@@ -5,6 +5,9 @@ __metaclass__ = type
 
 # another possible heuristic is to use the length of the words trying
 # to maximize every time the size we're inserting
+
+# TODO: check which methods are doing some mutations and try to make
+# them more functional
 import re
 
 from collections import defaultdict
@@ -83,6 +86,15 @@ class Grid:
 
     def __iter__(self):
         return chain(self.lines(), self.columns())
+
+    @classmethod
+    def grid_from_string_list(cls, string_list):
+        length_strings = map(len, string_list)
+        assert len(string_list) > 0, "empty list passed in"
+        assert len(set(length_strings)) == 1, "should give equal length strings"
+        cells = [list(x) for x in string_list]
+        new_grid = cls(len(string_list[0]), cells=cells)
+        return new_grid
 
     def lines(self):
         return iter(self.cells[:])

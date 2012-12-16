@@ -76,6 +76,11 @@ class TestSquareWords(unittest.TestCase):
         gen = grid.empty_cells()
         self.assertEqual(gen.next(), (0, 0))
 
+    def test_string_list_to_grid(self):
+        tr = ["r cecar"] * 8
+        grid = square.Grid.grid_from_string_list(tr)
+        self.assertEqual(grid[0][1], square.EMPTY)
+
 
 class TestWords(unittest.TestCase):
     def setUp(self):
