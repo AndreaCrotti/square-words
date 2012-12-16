@@ -9,12 +9,12 @@ class TestSquareWords(unittest.TestCase):
 
     def test_count_chars_empty_grid(self):
         self.assertEqual(self.grid.tot_chars, 0)
-        self.assertEqual(self.grid.empty, 64)
+        self.assertEqual(self.grid.empty, 100)
 
     def test_count_chars_not_empty_grid(self):
         self.grid[0][1] = 'a'
         self.assertEqual(self.grid.tot_chars, 1)
-        self.assertEqual(self.grid.empty, 63)
+        self.assertEqual(self.grid.empty, 99)
 
     def test_set_value_in_grid_line_only_modifies_cell(self):
         self.grid[0][0] = 'a'
@@ -130,7 +130,7 @@ class TestMaximizeProblem(unittest.TestCase):
         grid = square.Grid()
         words = square.Words()
         ng = square.maximize_step(grid, words, (0, 0), direction=square.HORIZONTAL)
-        self.assertEqual(ng.tot_chars, 8)
+        self.assertEqual(ng.tot_chars, 10)
 
     def test_alternate_positions(self):
         desired = [((0, 0), square.VERTICAL),

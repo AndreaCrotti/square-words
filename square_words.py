@@ -17,7 +17,7 @@ from itertools import groupby, chain
 from string import ascii_lowercase
 
 # might be a nice javascript application to test out the various possibilities
-GRID_SIZE = 8
+GRID_SIZE = 10
 EMPTY = ' '
 
 DICT_FILE = 'cracklib-small'
@@ -217,4 +217,4 @@ def main():
 
 
 if __name__ == '__main__':
-    print(main())
+    main()
