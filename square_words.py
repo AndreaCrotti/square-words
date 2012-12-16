@@ -110,10 +110,9 @@ class Grid:
 
     @property
     def words(self):
-        unflat = [words_in_line(line) for line in self]
-        flat = reduce(lambda x, y: x + y, unflat)
-        # TODO: check if the filtering should be done in words_per_line?
-        return [x for x in flat if len(x) > 1]
+        all_words_per_line = [words_in_line(line) for line in self]
+        flattened_words = reduce(lambda x, y: x + y, all_words_per_line)
+        return [x for x in flattened_words if len(x) > 1]
 
     @property
     def tot_chars(self):
