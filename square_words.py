@@ -27,7 +27,7 @@ VERTICAL = 'V'
 HORIZONTAL = 'H'
 
 
-class NotEmptyCell(Exception): pass
+class InvalidCellSet(Exception): pass
 class NotValidGrid(Exception): pass
 
 
@@ -160,10 +160,12 @@ class Grid:
 
         cells = deepcopy(self.cells)
         for idx, (x, y) in enumerate(cell_pos(pos, direction, len(word))):
+            # the cell does not need to be empty if we want to set the same char
             if cells[x][y] != EMPTY:
-                raise NotEmptyCell("%d, %d Must be empty" % (x, y))
-
-            cells[x][y] = word[idx]
+                if cells[x][y] != word[idx]:
+                    raise InvalidCellSet("Position %d, %d is already set to %s" % (x, y, cells[x][y]))
+            else:
+                cells[x][y] = word[idx]
 
         new_grid = Grid(self.length, cells=cells)
         if not new_grid.is_valid:
