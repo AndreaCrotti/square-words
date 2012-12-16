@@ -99,3 +99,13 @@ class TestWords(unittest.TestCase):
     def test_matching_length(self):
         res = list(self.words.length_word(3))
         self.assertEqual(res[0], 'dna')
+
+
+class TestMaximizeProblem(unittest.TestCase):
+    def test_more_words_placed_increase_the_count(self):
+        gr1 = square.Grid()
+        gr2 = gr1.place_word('racecar')
+        self.assertTrue(gr2.tot_chars > gr1.tot_chars)
+        self.assertTrue(gr2.is_valid)
+        gr3 = gr2.place_word('racecar', pos=(2, 0))
+        self.assertTrue(gr3.tot_chars > gr2.tot_chars)
