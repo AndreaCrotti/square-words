@@ -27,6 +27,9 @@ VERTICAL = 'V'
 HORIZONTAL = 'H'
 
 
+class NotEmptyCell(Exception): pass
+
+
 class Words:
     """Class encapsulating the words, to make it easier to manipulate
     them
@@ -150,7 +153,9 @@ class Grid:
 
         cells = deepcopy(self.cells)
         for idx, (x, y) in enumerate(cell_pos(pos, direction, len(word))):
-            assert cells[x][y] == EMPTY, "%d, %d Must be empty" % (x, y)
+            if cells[x][y] != EMPTY:
+                raise NotEmptyCell("%d, %d Must be empty" % (x, y))
+
             cells[x][y] = word[idx]
 
         return Grid(self.length, cells=cells)
@@ -165,6 +170,8 @@ def maximize_step(grid, words):
         while True:
             word = ws.next()
             try:
+                # TODO: place word should fail in case the produced
+                # thing is not valid
                 new_grid = grid.place_word(word)
             except AssertionError:
                 continue

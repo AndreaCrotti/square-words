@@ -62,7 +62,7 @@ class TestSquareWords(unittest.TestCase):
 
     def test_placing_word_twice(self):
         new_grid = self.grid.place_word('aaa', pos=(1, 0), direction=square.VERTICAL)
-        with self.assertRaises(AssertionError):
+        with self.assertRaises(square.NotEmptyCell):
             new_grid.place_word('bbb', (1, 0), direction=square.HORIZONTAL)
 
     def test_check_grid(self):
