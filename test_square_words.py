@@ -115,3 +115,6 @@ class TestMaximizeProblem(unittest.TestCase):
         self.assertTrue(gr2.is_valid)
         gr3 = gr2.place_word('racecar', pos=(0, 4))
         self.assertTrue(gr3.tot_chars > gr2.tot_chars)
+
+    def test_maximize_function_returns_a_better_grid(self):
+        grid = square.Grid()

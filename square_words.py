@@ -158,12 +158,33 @@ class Grid:
         return grid
 
 
-def maximize():
-    grid = Grid()
+def maximize_step(grid, words):
+    # TODO: we might want to pass some kind of hint to the
+    # maximization or define a class of possible behaviours that can
+    # be applied to transform the grid automatically
+    for length in range(grid.length, 1, -1):
+        ws = words.length_word(length)
+        while True:
+            word = ws.next()
+            try:
+                new_grid = grid.place_word(word)
+            except AssertionError:
+                continue
+            else:
+                return new_grid
+
+
+def main():
     words = Words()
-    ws = words.length_word(8)
-    w1, w2 = ws.next(), ws.next()
+    old_grid = Grid()
+    while True:
+        next_grid = maximize_step(old_grid, words)
+        print("New grid {} has {} tot chars".format(next_grid, next_grid.tot_chars))
+        if next_grid.tot_chars == old_grid.tot_chars:
+            break
+        else:
+            old_grid = next_grid
 
 
 if __name__ == '__main__':
-    print(maximize())
+    print(maximize_step())
