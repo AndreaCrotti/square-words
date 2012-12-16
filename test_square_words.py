@@ -135,7 +135,7 @@ class TestMaximizeProblem(unittest.TestCase):
     def test_alternate_positions(self):
         desired = [((0, 0), square.VERTICAL),
                    ((0, 0), square.HORIZONTAL),
-                   ((2, 0), square.VERTICAL),
-                   ((0, 2), square.HORIZONTAL)]
+                   ((0, 2), square.VERTICAL),
+                   ((2, 0), square.HORIZONTAL)]
 
         self.assertListEqual(list(square.alternate_dir_pos(3)), desired)

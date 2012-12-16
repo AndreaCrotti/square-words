@@ -180,8 +180,8 @@ class Grid:
 
 def alternate_dir_pos(length):
     for n in range(0, length, 2):
-        yield (n, 0), VERTICAL
-        yield (0, n), HORIZONTAL
+        yield (0, n), VERTICAL
+        yield (n, 0), HORIZONTAL
 
 
 def maximize_step(grid, words, pos=None, direction=None):
