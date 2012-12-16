@@ -102,8 +102,7 @@ class Grid:
         assert len(string_list) > 0, "empty list passed in"
         assert len(set(length_strings)) == 1, "should give equal length strings"
         cells = [list(x) for x in string_list]
-        new_grid = cls(len(string_list[0]), cells=cells)
-        return new_grid
+        return cls(len(string_list[0]), cells=cells)
 
     def lines(self):
         return iter(self.cells[:])
@@ -154,8 +153,7 @@ class Grid:
             assert cells[x][y] == EMPTY, "%d, %d Must be empty" % (x, y)
             cells[x][y] = word[idx]
 
-        grid = Grid(self.length, cells=cells)
-        return grid
+        return Grid(self.length, cells=cells)
 
 
 def maximize_step(grid, words):
