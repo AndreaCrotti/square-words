@@ -144,7 +144,8 @@ class Grid:
         """Place a word in the grid returning a new grid object
         """
         assert len(word) <= self.length, "word does not fit in the grid"
-        # take the first available place
+        # take the first available place, but this also depends on the
+        # direction we want to go
         if pos is None:
             pos = self.empty_cells().next()
 
@@ -157,18 +158,12 @@ class Grid:
         return grid
 
 
-def main():
+def maximize():
     grid = Grid()
     words = Words()
     ws = words.length_word(8)
     w1, w2 = ws.next(), ws.next()
-    ng = grid.place_word(w1, pos=(0, 0))
-    print(ng)
-    # ng2 = ng.place_word(w2, pos=(2, 0))
-    # assert ng2.is_valid(words)
-
-    # print(ng2)
 
 
 if __name__ == '__main__':
-    main()
+    print(maximize())

@@ -113,5 +113,5 @@ class TestMaximizeProblem(unittest.TestCase):
         gr2 = gr1.place_word('racecar')
         self.assertTrue(gr2.tot_chars > gr1.tot_chars)
         self.assertTrue(gr2.is_valid)
-        gr3 = gr2.place_word('racecar')
+        gr3 = gr2.place_word('racecar', pos=(0, 4))
         self.assertTrue(gr3.tot_chars > gr2.tot_chars)
