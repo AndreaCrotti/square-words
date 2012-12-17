@@ -97,14 +97,20 @@ class Grid:
             for _ in range(self.length):
                 self.cells.append([EMPTY] * self.length)
 
-    def __str__(self):
-        return '\n'.join(''.join(x) for x in self.lines())
-
     def __getitem__(self, item):
         return self.cells[item]
 
     def __iter__(self):
         return chain(self.lines(), self.columns())
+
+    def __str__(self):
+        border = '+{}+'.format('-' * (self.length * 2 - 1))
+
+        def pretty_line(line):
+            return '|{}|'.format('|'.join(line))
+
+        content = '\n'.join(pretty_line(x) for x in self.lines())
+        return '\n'.join([border, content, border])
 
     @classmethod
     def grid_from_string_list(cls, string_list):
@@ -175,9 +181,6 @@ def alternate_dir_pos(length):
 
 
 def maximize_step(grid, words, pos=None, direction=None):
-    # TODO: we might want to pass some kind of hint to the
-    # maximization or define a class of possible behaviours that can
-    # be applied to transform the grid automatically
     for word_length in range(grid.length, 1, -1):
         proto = grid.get_prototype(pos, direction, word_length)
         proto_gen = words.longest_prototype(proto, limit=word_length)
@@ -199,7 +202,8 @@ def main():
     old_grid = Grid()
     for pos, direction in alternate_dir_pos(old_grid.length):
         next_grid = maximize_step(old_grid, words, pos, direction)
-        print("New grid:\n{}\n has {} tot chars".format(next_grid, next_grid.tot_chars))
+        print("{} total chars".format(next_grid.tot_chars))
+        print(next_grid)
         if next_grid.tot_chars == old_grid.tot_chars:
             break
         else:
