@@ -3,6 +3,7 @@ from __future__ import division
 __metaclass__ = type
 
 import re
+from sys import exit
 
 from collections import defaultdict, Counter
 from copy import deepcopy
@@ -15,7 +16,7 @@ from string import ascii_lowercase
 GRID_SIZE = 10
 EMPTY = ' '
 
-DICT_FILE = 'cracklib-small'
+DICT_FILE = 'british'
 # if the dictionary is not too small it can be simply loaded up-front
 DICT = set(x.strip() for x in open(DICT_FILE))
 VERTICAL = 'V'
@@ -207,6 +208,7 @@ def maximize_step(grid, words, pos=None, direction=None):
             try:
                 next_matching = proto_gen.next()
             except StopIteration:
+                print("Could not find words with length %d for prototype %s, decreasing size to %d" % (word_length, proto, word_length-1))
                 break
             else:
                 try:
