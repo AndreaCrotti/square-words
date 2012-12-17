@@ -120,7 +120,8 @@ def cell_pos(pos, direction, length):
 
 
 class Grid:
-    def __init__(self, length=GRID_SIZE, cells=None):
+    def __init__(self, dic, length=GRID_SIZE, cells=None):
+        self.dic = dic
         self.length = length
         if cells:
             self.cells = cells
@@ -159,10 +160,10 @@ class Grid:
         for n in range(self.length):
             yield [self.cells[i][n] for i in range(self.length)]
 
-    def is_valid(self, word_dict):
+    def is_valid(self):
         """Return true if all the words in the grid are valid words
         """
-        return all((x in word_dict) for x in self.words)
+        return all((x in self.dic) for x in self.words)
 
     def get_prototype(self, pos, direction, length):
         all_pos = cell_pos(pos, direction, length)
@@ -199,9 +200,9 @@ class Grid:
             else:
                 cells[x][y] = word[idx]
 
-        new_grid = Grid(self.length, cells=cells)
-        if not new_grid.is_valid:
-            raise NotValidGrid("Grid %s contains some non words" % str(new_grid))
+        new_grid = Grid(self.dic, self.length, cells=cells)
+        if not new_grid.is_valid():
+            raise NotValidGrid("Grid %s contains some non words in the list %s" % (str(new_grid), str(new_grid.words)))
 
         return new_grid
 
@@ -231,7 +232,7 @@ def maximize_step(grid, words, pos=None, direction=None):
 
 
 def loop_solutions(words):
-    old_grid = Grid()
+    old_grid = Grid(words)
     with open(RESULTS, 'a') as res:
         for pos, direction in alternate_dir_pos(old_grid.length):
             next_grid = maximize_step(old_grid, words, pos, direction)
