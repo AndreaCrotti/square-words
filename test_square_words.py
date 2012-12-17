@@ -108,7 +108,7 @@ class TestWords(unittest.TestCase):
         self.assertEqual(lg_gen.next(), to_match)
 
     def test_contained_words(self):
-        self.assertTrue(not 'acs' in WORDS)
+        self.assertTrue('acs' in WORDS)
 
     def test_matching_length(self):
         res = list(WORDS.length_word(3))
@@ -144,4 +144,6 @@ class TestMaximizeProblem(unittest.TestCase):
                    ((0, 2), square.VERTICAL),
                    ((2, 0), square.HORIZONTAL)]
 
-        self.assertListEqual(list(square.alternate_dir_pos(3)), desired)
+        res = list(square.alternate_dir_pos(3))
+        for des in desired:
+            self.assertTrue(des in res)
