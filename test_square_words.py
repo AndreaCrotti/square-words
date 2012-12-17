@@ -112,6 +112,10 @@ class TestWords(unittest.TestCase):
         res = list(self.words.length_word(3))
         self.assertEqual(res[0], 'dna')
 
+    def test_most_common_chars(self):
+        most_common = self.words.most_common_chars()
+        self.assertEqual(most_common[0][0], 'e')
+
 
 class TestMaximizeProblem(unittest.TestCase):
     def test_more_words_placed_increase_the_count(self):

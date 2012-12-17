@@ -1,16 +1,9 @@
 __metaclass__ = type
 
-# TODO: one possible euristic is to detect the most used characters
-# and try to use words that are using these characters
 
-# another possible heuristic is to use the length of the words trying
-# to maximize every time the size we're inserting
-
-# TODO: check which methods are doing some mutations and try to make
-# them more functional
 import re
 
-from collections import defaultdict
+from collections import defaultdict, Counter
 from copy import deepcopy
 from functools import reduce
 from itertools import groupby, chain
@@ -35,6 +28,10 @@ class Words:
     """Class encapsulating the words, to make it easier to manipulate
     them
     """
+    # we can choose here which kind of strategy might be used first
+    MOST_USED_FIRST = 1
+    LONGEST_FIRST = 1
+
     def __init__(self, dictfile=DICT_FILE):
         self.dictfile = dictfile
         self.dict = set(x.strip() for x in open(DICT_FILE))
@@ -42,6 +39,14 @@ class Words:
 
     def __contains__(self, val):
         return val in self.dict
+
+    def most_common_chars(self):
+        """Return a dictionary with the most common chars, and their
+        frequency
+        """
+        all_chars = reduce(lambda x, y: x + y, self.dict)
+        count = Counter(all_chars)
+        return count.most_common()
 
     def match_length(self):
         """Generates a dictionary with length and word list
