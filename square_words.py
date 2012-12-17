@@ -76,6 +76,8 @@ class Words:
         return dic_len
 
     def sorting_key_function(self, word):
+        """Maximize the length of the function and the ranking
+        """
         res = len(word) * self.rank_word(word)
         if self.randomize:
             res *= random()

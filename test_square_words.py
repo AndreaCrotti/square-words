@@ -2,6 +2,8 @@ import unittest
 
 import square_words as square
 
+WORDS = square.Words()
+
 
 class TestSquareWords(unittest.TestCase):
     def setUp(self):
@@ -58,7 +60,7 @@ class TestSquareWords(unittest.TestCase):
         self.assertEqual(self.grid[1][0], square.EMPTY)
         self.assertEqual(new_grid[1][0], 'a')
         self.assertEqual(new_grid[2][0], 'a')
-        self.assertTrue(new_grid.is_valid(square.Words()))
+        self.assertTrue(new_grid.is_valid(WORDS))
 
     def test_placing_word_twice(self):
         new_grid = self.grid.place_word('aaa', pos=(1, 0), direction=square.VERTICAL)
@@ -73,7 +75,7 @@ class TestSquareWords(unittest.TestCase):
     def test_check_grid(self):
         self.grid[0][0] = 'a'
         self.grid[0][1] = 'b'
-        self.assertTrue(not self.grid.is_valid(square.Words()))
+        self.assertTrue(not self.grid.is_valid(WORDS))
 
     def test_string_list_to_grid(self):
         tr = ["r cecar"] * 8
@@ -90,35 +92,32 @@ class TestSquareWords(unittest.TestCase):
 
 
 class TestWords(unittest.TestCase):
-    def setUp(self):
-        self.words = square.Words()
-
     def test_simple_word_found(self):
-        self.assertTrue('aaa' in self.words)
+        self.assertTrue('aaa' in WORDS)
 
     def test_get_words_match_prototypes(self):
         # find word 'aberdeen'
         to_find = 'a er ee '
-        all_an = self.words.match_prototype(to_find)
+        all_an = WORDS.match_prototype(to_find)
         self.assertTrue('aberdeen' in all_an)
-        self.assertEqual(len(all_an), 1)
+        self.assertEqual(len(all_an), 2)
 
     def test_get_longest_prototype(self):
         to_match = 'aberdeen'
-        lg_gen = self.words.longest_prototype('a er ee ', limit=8)
+        lg_gen = WORDS.longest_prototype('a er ee ', limit=8)
         self.assertEqual(lg_gen.next(), to_match)
 
     def test_matching_length(self):
-        res = list(self.words.length_word(3))
+        res = list(WORDS.length_word(3))
         self.assertEqual(res[0], 'dna')
 
     def test_most_common_chars(self):
-        most_common = self.words.most_common_chars()
+        most_common = WORDS.most_common_chars()
         self.assertEqual(most_common[0][0], 'e')
 
     def test_words_ranking(self):
-        rk1 = self.words.rank_word('zzz')
-        rk2 = self.words.rank_word('aeea')
+        rk1 = WORDS.rank_word('zzz')
+        rk2 = WORDS.rank_word('aeea')
         self.assertTrue(rk1 < rk2)
 
 
@@ -133,8 +132,7 @@ class TestMaximizeProblem(unittest.TestCase):
 
     def test_maximize_function_returns_a_better_grid(self):
         grid = square.Grid()
-        words = square.Words()
-        ng = square.maximize_step(grid, words, (0, 0), direction=square.HORIZONTAL)
+        ng = square.maximize_step(grid, WORDS, (0, 0), direction=square.HORIZONTAL)
         self.assertEqual(ng.tot_chars, 10)
 
     def test_alternate_positions(self):
