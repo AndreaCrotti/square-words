@@ -76,11 +76,11 @@ class Words:
         return dic_len
 
     def sorting_key_function(self, word):
-        rank = self.rank_word(word)
+        res = len(word) * self.rank_word(word)
         if self.randomize:
-            rank *= random()
+            res *= random()
 
-        return len(word) * rank
+        return res
 
     def longest_prototype(self, prototype, limit):
         all_prototypes = self.match_prototype(prototype)
