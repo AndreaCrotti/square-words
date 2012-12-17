@@ -236,16 +236,16 @@ def loop_solutions(words):
     with open(RESULTS, 'a') as res:
         for pos, direction in alternate_dir_pos(old_grid.length):
             next_grid = maximize_step(old_grid, words, pos, direction)
+            if next_grid is None:
+                break
+
             msg = "{} total chars:\n{}".format(next_grid.tot_chars, next_grid)
             print(msg)
             if next_grid.tot_chars >= 70:
                 print("Got a wonderful result")
                 res.write(msg + '\n')
 
-            if next_grid.tot_chars == old_grid.tot_chars:
-                break
-            else:
-                old_grid = next_grid
+            old_grid = next_grid
 
 
 def main():
