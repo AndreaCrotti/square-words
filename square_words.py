@@ -79,14 +79,12 @@ class Words:
         if self.randomize:
             rank *= random()
 
-        return len(word) + rank
+        return len(word) * rank
 
     def longest_prototype(self, prototype, limit):
         all_prototypes = self.match_prototype(prototype)
         in_bound = [w for w in all_prototypes if len(w) <= limit]
-        for w in sorted(in_bound, key=lambda x: len(x), reverse=True):
-        # for w in sorted(in_bound, key=self.rank_word, reverse=True):
-        # for w in sorted(in_bound, key=self.sorting_key_function, reverse=True):
+        for w in sorted(in_bound, key=self.sorting_key_function, reverse=True):
             yield w
 
     def match_prototype(self, to_find):
@@ -230,7 +228,7 @@ def maximize_step(grid, words, pos=None, direction=None):
 
 
 def main():
-    words = Words()
+    words = Words(randomize=True)
     old_grid = Grid()
     for pos, direction in alternate_dir_pos(old_grid.length):
         next_grid = maximize_step(old_grid, words, pos, direction)
