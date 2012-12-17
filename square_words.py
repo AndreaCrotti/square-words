@@ -3,7 +3,6 @@ from __future__ import division
 __metaclass__ = type
 
 import re
-from sys import exit
 
 from collections import defaultdict, Counter
 from copy import deepcopy
@@ -16,9 +15,8 @@ from string import ascii_lowercase
 GRID_SIZE = 10
 EMPTY = ' '
 
-DICT_FILE = 'british'
-# if the dictionary is not too small it can be simply loaded up-front
-DICT = set(x.strip() for x in open(DICT_FILE))
+DICTS_FILE = ['british', 'cracklib-small']
+
 VERTICAL = 'V'
 HORIZONTAL = 'H'
 
@@ -35,13 +33,19 @@ class Words:
     MOST_USED_FIRST = 1
     LONGEST_FIRST = 1
 
-    def __init__(self, dictfile=DICT_FILE, randomize=False):
-        self.dictfile = dictfile
-        self.dict = set(x.strip() for x in open(DICT_FILE))
+    def __init__(self, dictfiles=DICTS_FILE, randomize=False):
+        self.dict = self._init_dict(dictfiles)
         self.dict_per_length = self.match_length()
         self.most_common = dict(self.most_common_chars())
         self.tot_chars = sum(self.most_common.values())
         self.randomize = randomize
+
+    def _init_dict(self, dictfiles):
+        dic = set()
+        for dicf in dictfiles:
+            dic.update(x.strip() for x in open(dicf))
+        print("Using a dictionary with %d words" % len(dic))
+        return dic
 
     def __contains__(self, val):
         return val in self.dict
