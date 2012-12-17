@@ -1,5 +1,6 @@
-__metaclass__ = type
+from __future__ import division
 
+__metaclass__ = type
 
 import re
 
@@ -7,6 +8,7 @@ from collections import defaultdict, Counter
 from copy import deepcopy
 from functools import reduce
 from itertools import groupby, chain
+from random import random
 from string import ascii_lowercase
 
 # might be a nice javascript application to test out the various possibilities
@@ -36,6 +38,8 @@ class Words:
         self.dictfile = dictfile
         self.dict = set(x.strip() for x in open(DICT_FILE))
         self.dict_per_length = self.match_length()
+        self.most_common = dict(self.most_common_chars())
+        self.tot_chars = sum(self.most_common.values())
 
     def __contains__(self, val):
         return val in self.dict
@@ -48,6 +52,11 @@ class Words:
         count = Counter(all_chars)
         return count.most_common()
 
+    def rank_word(self, word):
+        """Average on the length of the word of the average chars
+        """
+        return sum(self.most_common[x] for x in word) / len(word)
+
     def match_length(self):
         """Generates a dictionary with length and word list
         """
@@ -57,10 +66,15 @@ class Words:
 
         return dic_len
 
+    def sorting_key_function(self, word):
+        return len(word) + (self.rank_word(word) * random())
+
     def longest_prototype(self, prototype, limit):
         all_prototypes = self.match_prototype(prototype)
         in_bound = [w for w in all_prototypes if len(w) <= limit]
-        for w in sorted(in_bound, key=lambda x: len(x), reverse=True):
+        # for w in sorted(in_bound, key=lambda x: len(x), reverse=True):
+        # for w in sorted(in_bound, key=self.rank_word, reverse=True):
+        for w in sorted(in_bound, key=self.sorting_key_function, reverse=True):
             yield w
 
     def match_prototype(self, to_find):

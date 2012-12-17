@@ -116,6 +116,11 @@ class TestWords(unittest.TestCase):
         most_common = self.words.most_common_chars()
         self.assertEqual(most_common[0][0], 'e')
 
+    def test_words_ranking(self):
+        rk1 = self.words.rank_word('zzz')
+        rk2 = self.words.rank_word('aeea')
+        self.assertTrue(rk1 < rk2)
+
 
 class TestMaximizeProblem(unittest.TestCase):
     def test_more_words_placed_increase_the_count(self):
