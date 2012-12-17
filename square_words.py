@@ -218,11 +218,12 @@ def maximize_step(grid, words, pos=None, direction=None):
     for word_length in range(grid.length, 1, -1):
         proto = grid.get_prototype(pos, direction, word_length)
         proto_gen = words.longest_prototype(proto, limit=word_length)
+        # TODO: if we get a word which is not the full length try to
+        # fit something else in
         while True:
             try:
                 next_matching = proto_gen.next()
             except StopIteration:
-                # print("Could not find words with length %d for prototype %s, decreasing size to %d" % (word_length, proto, word_length-1))
                 break
             else:
                 try:
