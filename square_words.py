@@ -16,6 +16,7 @@ GRID_SIZE = 10
 EMPTY = ' '
 
 DICTS_FILE = ['british', 'cracklib-small']
+RESULTS = 'results.txt'
 
 VERTICAL = 'V'
 HORIZONTAL = 'H'
@@ -217,7 +218,7 @@ def maximize_step(grid, words, pos=None, direction=None):
             try:
                 next_matching = proto_gen.next()
             except StopIteration:
-                print("Could not find words with length %d for prototype %s, decreasing size to %d" % (word_length, proto, word_length-1))
+                # print("Could not find words with length %d for prototype %s, decreasing size to %d" % (word_length, proto, word_length-1))
                 break
             else:
                 try:
@@ -227,17 +228,27 @@ def maximize_step(grid, words, pos=None, direction=None):
                     continue
 
 
+def loop_solutions(words):
+    old_grid = Grid()
+    with open(RESULTS, 'a') as res:
+        for pos, direction in alternate_dir_pos(old_grid.length):
+            next_grid = maximize_step(old_grid, words, pos, direction)
+            msg = "{} total chars:\n{}".format(next_grid.tot_chars, next_grid)
+            print(msg)
+            if next_grid.tot_chars >= 70:
+                print("Got a wonderful result")
+                res.write(msg + '\n')
+
+            if next_grid.tot_chars == old_grid.tot_chars:
+                break
+            else:
+                old_grid = next_grid
+
+
 def main():
     words = Words(randomize=True)
-    old_grid = Grid()
-    for pos, direction in alternate_dir_pos(old_grid.length):
-        next_grid = maximize_step(old_grid, words, pos, direction)
-        print("{} total chars".format(next_grid.tot_chars))
-        print(next_grid)
-        if next_grid.tot_chars == old_grid.tot_chars:
-            break
-        else:
-            old_grid = next_grid
+    for n in range(100):
+        loop_solutions(words)
 
 
 if __name__ == '__main__':
