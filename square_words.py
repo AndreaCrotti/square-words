@@ -43,7 +43,9 @@ class Words:
     def _init_dict(self, dictfiles):
         dic = set()
         for dicf in dictfiles:
-            dic.update(x.strip() for x in open(dicf))
+            # TODO: if we want to skip the names we have to filter the
+            # uppercase words
+            dic.update(x.strip().lower() for x in open(dicf))
         print("Using a dictionary with %d words" % len(dic))
         return dic
 
