@@ -1,7 +1,8 @@
 from __future__ import division
 
 __metaclass__ = type
-
+# TODO: when we reduce the size for a line, don't give it for lost
+# and try again
 import re
 
 from collections import defaultdict, Counter
@@ -208,7 +209,7 @@ class Grid:
 
 
 def alternate_dir_pos(length):
-    for n in range(0, length, 2):
+    for n in range(0, length, 1):
         yield (0, n), VERTICAL
         yield (n, 0), HORIZONTAL
 

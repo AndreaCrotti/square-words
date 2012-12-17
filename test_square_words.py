@@ -107,6 +107,9 @@ class TestWords(unittest.TestCase):
         lg_gen = WORDS.longest_prototype('a er ee ', limit=8)
         self.assertEqual(lg_gen.next(), to_match)
 
+    def test_contained_words(self):
+        self.assertTrue(not 'acs' in WORDS)
+
     def test_matching_length(self):
         res = list(WORDS.length_word(3))
         self.assertEqual(res[0], 'dna')
