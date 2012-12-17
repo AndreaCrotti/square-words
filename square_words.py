@@ -35,12 +35,13 @@ class Words:
     MOST_USED_FIRST = 1
     LONGEST_FIRST = 1
 
-    def __init__(self, dictfile=DICT_FILE):
+    def __init__(self, dictfile=DICT_FILE, randomize=False):
         self.dictfile = dictfile
         self.dict = set(x.strip() for x in open(DICT_FILE))
         self.dict_per_length = self.match_length()
         self.most_common = dict(self.most_common_chars())
         self.tot_chars = sum(self.most_common.values())
+        self.randomize = randomize
 
     def __contains__(self, val):
         return val in self.dict
@@ -68,14 +69,18 @@ class Words:
         return dic_len
 
     def sorting_key_function(self, word):
-        return len(word) + (self.rank_word(word) * random())
+        rank = self.rank_word(word)
+        if self.randomize:
+            rank *= random()
+
+        return len(word) + rank
 
     def longest_prototype(self, prototype, limit):
         all_prototypes = self.match_prototype(prototype)
         in_bound = [w for w in all_prototypes if len(w) <= limit]
-        # for w in sorted(in_bound, key=lambda x: len(x), reverse=True):
+        for w in sorted(in_bound, key=lambda x: len(x), reverse=True):
         # for w in sorted(in_bound, key=self.rank_word, reverse=True):
-        for w in sorted(in_bound, key=self.sorting_key_function, reverse=True):
+        # for w in sorted(in_bound, key=self.sorting_key_function, reverse=True):
             yield w
 
     def match_prototype(self, to_find):
