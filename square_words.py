@@ -222,7 +222,8 @@ def alternate_dir_pos(length):
 
 
 def maximize_step(grid, words, pos=None, direction=None):
-    for word_length in range(grid.length, 1, -1):
+    max_length = grid.max_length(pos, direction)
+    for word_length in range(max_length, 1, -1):
         proto = grid.get_prototype(pos, direction, word_length)
         proto_gen = words.longest_prototype(proto, limit=word_length)
         # TODO: if we get a word which is not the full length try to
