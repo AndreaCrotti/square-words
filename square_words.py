@@ -1,8 +1,8 @@
 from __future__ import division
 
 __metaclass__ = type
-# TODO: when we reduce the size for a line, don't give it for lost
-# and try again
+# TODO: try to take another path
+
 import re
 
 from collections import defaultdict, Counter
@@ -12,12 +12,12 @@ from itertools import groupby, chain
 from random import random
 from string import ascii_lowercase
 
-LINES_STEP = 1
+LINES_STEP = 2
 # might be a nice javascript application to test out the various possibilities
 GRID_SIZE = 10
 EMPTY = ' '
 
-DICTS_FILE = ['british', 'cracklib-small']
+DICTS_FILE = ['british']
 RESULTS = 'results.txt'
 
 VERTICAL = 'V'

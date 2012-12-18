@@ -297,3 +297,42 @@
 |s|c|o|t|t|i|e| | |n|
 |s|h| |s| | | | | |g|
 +-------------------+
+74 total chars:
++-------------------+
+|r|e|m|i|s|s|n|e|s|s|
+|e|x|o|n|e|r|a|t|e|d|
+|a|t|e|s| | |m|o|p| |
+|s|e|n|t|i|m|e|n|t|s|
+|s|n| |i| | | | |a| |
+|e|s|o|t|e|r|i|c| | |
+|s|i|n|u|s|i|t|i|s| |
+|s|b| |t| | | | | | |
+|e|l|d|e|r|b|e|r|r|y|
+|s|e| |r| | | | | | |
++-------------------+
+74 total chars:
++-------------------+
+|r|e|m|i|s|s|n|e|s|s|
+|e|x|o|n|e|r|a|t|e|d|
+|a|t|e|s| | |m|o|p| |
+|s|e|n|t|i|m|e|n|t|s|
+|s|n| |i| | | | |a| |
+|e|s|o|t|e|r|i|c| | |
+|s|i|n|u|s|i|t|i|s| |
+|s|b| |t| | | | | | |
+|e|l|d|e|r|b|e|r|r|y|
+|s|e| |r| | | | | | |
++-------------------+
+78 total chars:
++-------------------+
+|r|e|m|i|s|s|n|e|s|s|
+|e|x|o|n|e|r|a|t|e|d|
+|a|t|e|s| | |m|o|p| |
+|s|e|n|t|i|m|e|n|t|s|
+|s|n| |i| | | | |a| |
+|e|s|o|t|e|r|i|c| | |
+|s|i|n|u|s|i|t|i|s| |
+|s|b| |t| | | | | | |
+|e|l|d|e|r|b|e|r|r|y|
+|s|e|r|r|i|e|d| | | |
++-------------------+
