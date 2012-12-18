@@ -147,6 +147,12 @@ class Grid:
         content = '\n'.join(pretty_line(x) for x in self.lines())
         return '\n'.join([border, content, border])
 
+    def max_length(self, pos, direction):
+        if direction == VERTICAL:
+            return self.length - pos[0]
+        else:
+            return self.length - pos[1]
+
     @classmethod
     def grid_from_string_list(cls, string_list):
         length_strings = map(len, string_list)
