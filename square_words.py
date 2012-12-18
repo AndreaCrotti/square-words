@@ -12,6 +12,7 @@ from itertools import groupby, chain
 from random import random
 from string import ascii_lowercase
 
+LINES_STEP = 1
 # might be a nice javascript application to test out the various possibilities
 GRID_SIZE = 10
 EMPTY = ' '
@@ -209,7 +210,7 @@ class Grid:
 
 
 def alternate_dir_pos(length):
-    for n in range(0, length, 1):
+    for n in range(0, length, LINES_STEP):
         yield (0, n), VERTICAL
         yield (n, 0), HORIZONTAL
 
@@ -242,7 +243,9 @@ def loop_solutions(words):
                 break
 
             msg = "{} total chars:\n{}".format(next_grid.tot_chars, next_grid)
+            after = "{} total words = {}\n".format(len(next_grid.words), next_grid.words)
             print(msg)
+            print(after)
             if next_grid.tot_chars >= 70:
                 print("Got a wonderful result")
                 res.write(msg + '\n')
@@ -252,8 +255,8 @@ def loop_solutions(words):
 
 def main():
     words = Words(randomize=True)
-    for n in range(100):
-        loop_solutions(words)
+    # for n in range(100):
+    loop_solutions(words)
 
 
 if __name__ == '__main__':
