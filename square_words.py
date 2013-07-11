@@ -216,8 +216,8 @@ class Grid:
         return new_grid
 
 
-def alternate_dir_pos(length):
-    for n in range(0, length, LINES_STEP):
+def alternate_dir_pos(length, lines_step):
+    for n in range(0, length, lines_step):
         yield (0, n), VERTICAL
         yield (n, 0), HORIZONTAL
 
@@ -245,7 +245,7 @@ def maximize_step(grid, words, pos=None, direction=None):
 def loop_solutions(words, grid, lines_step):
     old_grid = grid
     with open(RESULTS, 'a') as res:
-        for pos, direction in alternate_dir_pos(old_grid.length):
+        for pos, direction in alternate_dir_pos(old_grid.length, lines_step):
             next_grid = maximize_step(old_grid, words, pos, direction)
             if next_grid is None:
                 break
