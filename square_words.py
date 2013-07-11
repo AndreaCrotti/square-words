@@ -33,7 +33,8 @@ class Words:
     """Class encapsulating the words, to make it easier to manipulate
     them
     """
-    def __init__(self, dictfiles=DICTS_FILE, randomize=False):
+    def __init__(self, dictfiles=DICTS_FILE, randomize=False, most_common_strategy=False):
+        self.most_common_strategy = most_common_strategy
         self.dict = self._init_dict(dictfiles)
         self.dict_per_length = self.match_length()
         self.most_common = dict(self.most_common_chars())
@@ -75,7 +76,10 @@ class Words:
     def sorting_key_function(self, word):
         """Maximize the length of the function and the ranking
         """
-        res = len(word) * self.rank_word(word)
+        res = len(word)
+        if self.most_common_strategy:
+            res *= self.rank_word(word)
+
         if self.randomize:
             res *= random()
 
@@ -262,12 +266,14 @@ def parse_arguments():
     parser.add_argument('-l', '--skip_n_lines', default=LINES_STEP, type=int)
     parser.add_argument('-g', '--grid_size', default=GRID_SIZE, type=int)
     parser.add_argument('-r', '--randomize', action='store_true')
+    parser.add_argument('-m', '--most_common_strategy', action='store_true')
+
     return parser.parse_args()
 
 
 def main():
     ns = parse_arguments()
-    words = Words(randomize=ns.randomize)
+    words = Words(randomize=ns.randomize, most_common_strategy=ns.most_common_strategy)
     grid = Grid(words, ns.grid_size)
     loop_solutions(words, grid, ns.skip_n_lines)
 
