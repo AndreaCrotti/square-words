@@ -262,8 +262,8 @@ def loop_solutions(words, grid, lines_step):
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Crossword')
-    parser.add_argument('-l', '--skip_n_lines', default=LINES_STEP)
-    parser.add_argument('-g', '--grid_size', default=GRID_SIZE)
+    parser.add_argument('-l', '--skip_n_lines', default=LINES_STEP, type=int)
+    parser.add_argument('-g', '--grid_size', default=GRID_SIZE, type=int)
 
     return parser.parse_args()
 
