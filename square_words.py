@@ -3,6 +3,7 @@ from __future__ import division
 __metaclass__ = type
 # TODO: try to take another path
 
+import argparse
 import re
 
 from collections import defaultdict, Counter
@@ -241,8 +242,8 @@ def maximize_step(grid, words, pos=None, direction=None):
                     continue
 
 
-def loop_solutions(words):
-    old_grid = Grid(words)
+def loop_solutions(words, grid, lines_step):
+    old_grid = grid
     with open(RESULTS, 'a') as res:
         for pos, direction in alternate_dir_pos(old_grid.length):
             next_grid = maximize_step(old_grid, words, pos, direction)
@@ -259,11 +260,19 @@ def loop_solutions(words):
 
             old_grid = next_grid
 
+def parse_arguments():
+    parser = argparse.ArgumentParser(description='Crossword')
+    parser.add_argument('-l', '--skip_n_lines', default=LINES_STEP)
+    parser.add_argument('-g', '--grid_size', default=GRID_SIZE)
+
+    return parser.parse_args()
+
 
 def main():
+    ns = parse_arguments()
     words = Words(randomize=True)
-    # for n in range(100):
-    loop_solutions(words)
+    grid = Grid(words, ns.grid_size)
+    loop_solutions(words, grid, ns.skip_n_lines)
 
 
 if __name__ == '__main__':
