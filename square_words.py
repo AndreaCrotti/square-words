@@ -18,7 +18,7 @@ LINES_STEP = 2
 GRID_SIZE = 10
 EMPTY = ' '
 
-DICTS_FILE = ['british', 'cracklib-small']
+DICTS_FILE = ['british']# 'cracklib-small']
 RESULTS = 'results.txt'
 
 VERTICAL = 'V'
@@ -33,10 +33,6 @@ class Words:
     """Class encapsulating the words, to make it easier to manipulate
     them
     """
-    # we can choose here which kind of strategy might be used first
-    MOST_USED_FIRST = 1
-    LONGEST_FIRST = 1
-
     def __init__(self, dictfiles=DICTS_FILE, randomize=False):
         self.dict = self._init_dict(dictfiles)
         self.dict_per_length = self.match_length()
@@ -47,8 +43,6 @@ class Words:
     def _init_dict(self, dictfiles):
         dic = set()
         for dicf in dictfiles:
-            # TODO: if we want to skip the names we have to filter the
-            # uppercase words
             dic.update(x.strip().lower() for x in open(dicf))
         print("Using a dictionary with %d words" % len(dic))
         return dic
@@ -88,6 +82,9 @@ class Words:
         return res
 
     def longest_prototype(self, prototype, limit):
+        """Generator that yields the words that maximize the ranking
+        function
+        """
         all_prototypes = self.match_prototype(prototype)
         in_bound = [w for w in all_prototypes if len(w) <= limit]
         for w in sorted(in_bound, key=self.sorting_key_function, reverse=True):
@@ -264,13 +261,13 @@ def parse_arguments():
     parser = argparse.ArgumentParser(description='Crossword')
     parser.add_argument('-l', '--skip_n_lines', default=LINES_STEP, type=int)
     parser.add_argument('-g', '--grid_size', default=GRID_SIZE, type=int)
-
+    parser.add_argument('-r', '--randomize', action='store_true')
     return parser.parse_args()
 
 
 def main():
     ns = parse_arguments()
-    words = Words(randomize=True)
+    words = Words(randomize=ns.randomize)
     grid = Grid(words, ns.grid_size)
     loop_solutions(words, grid, ns.skip_n_lines)
 
