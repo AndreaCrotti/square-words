@@ -144,6 +144,6 @@ class TestMaximizeProblem(unittest.TestCase):
                    ((0, 2), square.VERTICAL),
                    ((2, 0), square.HORIZONTAL)]
 
-        res = list(square.alternate_dir_pos(3))
+        res = list(square.alternate_dir_pos(3, 1))
         for des in desired:
             self.assertTrue(des in res)

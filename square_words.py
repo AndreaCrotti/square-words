@@ -15,7 +15,7 @@ LINES_STEP = 2
 GRID_SIZE = 10
 EMPTY = ' '
 
-DICTS_FILE = ['british']# 'cracklib-small']
+DICTS_FILE = ['british', 'cracklib-small']
 RESULTS = 'results.txt'
 
 VERTICAL = 'V'
