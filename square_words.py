@@ -120,7 +120,7 @@ def cell_pos(pos, direction, length):
             yield pos[0], i + pos[1]
 
 
-class Grid:
+class Grid(object):
     def __init__(self, dic, length=GRID_SIZE, cells=None):
         self.dic = dic
         self.length = length
