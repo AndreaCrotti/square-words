@@ -1,8 +1,5 @@
 from __future__ import division
 
-__metaclass__ = type
-# TODO: try to take another path
-
 import argparse
 import re
 
@@ -29,7 +26,7 @@ class InvalidCellSet(Exception): pass
 class NotValidGrid(Exception): pass
 
 
-class Words:
+class Words(object):
     """Class encapsulating the words, to make it easier to manipulate
     them
     """
@@ -260,6 +257,7 @@ def loop_solutions(words, grid, lines_step):
                 res.write(msg + '\n')
 
             old_grid = next_grid
+
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Crossword')
