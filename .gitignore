@@ -1,1 +1,3 @@
 *.pyc
+.tox
+/square_words.egg-info

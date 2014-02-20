@@ -229,7 +229,7 @@ def maximize_step(grid, words, pos=None, direction=None):
         # fit something else in
         while True:
             try:
-                next_matching = proto_gen.next()
+                next_matching = next(proto_gen)
             except StopIteration:
                 break
             else:

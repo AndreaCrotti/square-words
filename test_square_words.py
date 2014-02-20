@@ -105,7 +105,7 @@ class TestWords(unittest.TestCase):
     def test_get_longest_prototype(self):
         to_match = 'aberdeen'
         lg_gen = WORDS.longest_prototype('a er ee ', limit=8)
-        self.assertEqual(lg_gen.next(), to_match)
+        self.assertEqual(next(lg_gen), to_match)
 
     def test_contained_words(self):
         self.assertTrue('acs' in WORDS)
