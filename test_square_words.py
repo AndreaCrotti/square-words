@@ -112,7 +112,7 @@ class TestWords(unittest.TestCase):
 
     def test_matching_length(self):
         res = list(WORDS.length_word(3))
-        self.assertEqual(res[0], 'dna')
+        self.assertEqual(len(res[0]), 3)
 
     def test_most_common_chars(self):
         most_common = WORDS.most_common_chars()

@@ -22,8 +22,12 @@ VERTICAL = 'V'
 HORIZONTAL = 'H'
 
 
-class InvalidCellSet(Exception): pass
-class NotValidGrid(Exception): pass
+class InvalidCellSet(Exception):
+    pass
+
+
+class NotValidGrid(Exception):
+    pass
 
 
 class Words(object):
@@ -242,21 +246,17 @@ def maximize_step(grid, words, pos=None, direction=None):
 
 def loop_solutions(words, grid, lines_step):
     old_grid = grid
-    with open(RESULTS, 'a') as res:
-        for pos, direction in alternate_dir_pos(old_grid.length, lines_step):
-            next_grid = maximize_step(old_grid, words, pos, direction)
-            if next_grid is None:
-                break
 
-            msg = "{} total chars:\n{}".format(next_grid.tot_chars, next_grid)
-            after = "{} total words = {}\n".format(len(next_grid.words), next_grid.words)
-            print(msg)
-            print(after)
-            if next_grid.tot_chars >= 70:
-                print("Got a wonderful result")
-                res.write(msg + '\n')
+    for pos, direction in alternate_dir_pos(old_grid.length, lines_step):
+        next_grid = maximize_step(old_grid, words, pos, direction)
+        if next_grid is None:
+            break
 
-            old_grid = next_grid
+        msg = "{} total chars:\n{}".format(next_grid.tot_chars, next_grid)
+        after = "{} total words = {}\n".format(len(next_grid.words), next_grid.words)
+        print(msg)
+        print(after)
+        old_grid = next_grid
 
 
 def parse_arguments():
